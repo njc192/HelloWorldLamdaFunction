@@ -18,6 +18,15 @@ public class GatewayResponse {
         this.body = body;
         this.headers = Collections.unmodifiableMap(new HashMap<>(headers));
     }
+    public GatewayResponse()
+    {
+        body = "ello gov";
+        headers = new HashMap<>();
+
+        headers.put("Content-Type", "application/json");
+        headers.put("X-Custom-Header", "application/json");
+        statusCode = 0;
+    }
 
     public String getBody() {
         return body;
@@ -30,4 +39,6 @@ public class GatewayResponse {
     public int getStatusCode() {
         return statusCode;
     }
+
+
 }

@@ -14,18 +14,13 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 /**
  * Handler for requests to Lambda function.
  */
-public class App implements RequestHandler<String, Object> {
-    public Object handleRequest(final String input, final Context context) {
+public class App implements RequestHandler<Object, GatewayResponse> {
+    public GatewayResponse handleRequest(Object input, final Context context) {
+        Tester t = new Tester();
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("X-Custom-Header", "application/json");
-        try {
-            final String pageContents = this.getPageContents("https://checkip.amazonaws.com");
-            String output = String.format("{ \"message\": \"%s\", \"second param\": \"%s\" }", input,"ello gov");
-            return new GatewayResponse(output, headers, 200);
-        } catch (IOException e) {
-            return new GatewayResponse("{}", headers, 500);
-        }
+        return new GatewayResponse(t.info(),headers,200);
     }
 
     private String getPageContents(String address) throws IOException{
